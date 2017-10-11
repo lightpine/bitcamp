@@ -22,16 +22,16 @@ public class Test15_11_1{
         
         privilege p1 = new privilege();
         
-        p1.isDirectory = false;
-        p1.ownerRead = true;
-        p1.ownerWrite = true;
-        p1.ownerExe = true;
-        p1.groupRead = true;
-        p1.groupWrite = false;
-        p1.groupExe = true;
-        p1.otherRead = true;
-        p1.otherWrite = false;
-        p1.otherExe = false;
+        p1.isDirectory  = false;
+        p1.ownerRead    = true;
+        p1.ownerWrite   = true;
+        p1.ownerExe     = true;
+        p1.groupRead    = true;
+        p1.groupWrite   = false;
+        p1.groupExe     = true;
+        p1.otherRead    = true;
+        p1.otherWrite   = false;
+        p1.otherExe     = false;
         
         System.out.print(p1.isDirectory ? "d" : "-");
         System.out.print(p1.ownerRead ? "r" : "-");

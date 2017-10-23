@@ -13,14 +13,18 @@ public class Test18_3{
         String s5 = new String("ABC가각간");
         String s6 = new String("ABC가각간");
       
-        
+         
         if (s1 == s2) System.out.println("s1 == s2");
         if (s1 == s3) System.out.println("s1 == s2");
+        
         System.out.println("----------------------------");
+        
         if (s1 != s4) System.out.println("s1 != s4");
         if (s1 != s5) System.out.println("s1 != s5");
         if (s1 != s6) System.out.println("s1 != s6");
+        
         System.out.println("----------------------------");
+        
         if (s4 != s5) System.out.println("s4 != s5");
         if (s4 != s6) System.out.println("s4 != s6");
         if (s5 != s6) System.out.println("s5 != s6");

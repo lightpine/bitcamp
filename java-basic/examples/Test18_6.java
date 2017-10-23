@@ -1,6 +1,7 @@
 // ## String 정규식을 이용하여 문자열을 검사하기
 
 package bitcamp.java100;
+import java.util.regex.*;
 
 
 public class Test18_6{
@@ -25,14 +26,13 @@ public class Test18_6{
         // 추출
         
         String str = "홍길동(Hong@test.com),임꺽정(Im@test.com),유관순(Yoo@test.com),"
-                    + "안중근(Ahn@test.com),윤봉길Youn@test.com)";
+                    + "안중근(Ahn@test.com),윤봉길(Youn@test.com)";
         
         //해당 문자열에서 주어진 규칙을 갖는 문자열을 찾아 출력하기
-        java.util.regex.Pattern pattern = 
-                java.util.regex.Pattern.compile("\\w+@\\w+\\.\\w+");
+        Pattern pattern = Pattern.compile("\\w+@\\w+\\.\\w+");
         //\\w = 소문자 a~z + A~Z + _ + 0 ~ 9까지 포함
         
-        java.util.regex.Matcher matcher = pattern.matcher(str);
+        Matcher matcher = pattern.matcher(str);
         
         
         int startIndex = 0;

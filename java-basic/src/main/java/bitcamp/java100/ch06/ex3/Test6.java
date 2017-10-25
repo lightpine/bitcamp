@@ -14,7 +14,7 @@ public class Test6 {
             A obj1;
             B obj2;
             
-            obj1 = new A();
+            //obj1 = new A();
             obj2 = new B();
     }
 }

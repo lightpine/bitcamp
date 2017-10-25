@@ -1,25 +1,36 @@
+import java.util.Scanner;
 
 public class App {
-    
 
+    static boolean confirm(String message) {
+        Scanner keyScan = new Scanner(System.in);
+        System.out.print(message);
+        while(keyScan.hasNextLine()) break;
+        String response = keyScan.nextLine().toLowerCase();
+        if (response.equals("y") || response.equals("yse")) 
+            return true;
+        return false;
+    }
     
-
     public static void main(String[] args) {
+        ScoreDao sdo = new ScoreDao();
         
-        Score[] scores = {new Score(), new Score(), new Score()};
-        
-        Score.init(scores[0], "홍길동", 100, 90, 80);
-        Score.init(scores[1], "임꺽정", 80, 80, 80);
-        Score.init(scores[2], "유관순", 100, 100, 100);
-        
-        for (Score s : scores) {
-            Score.print(s);
+        while(true) {
+            Score score = new Score();
+            score.input();
+            
+            if (!confirm("저장하시겠습니까? (y/n)"))
+                break;
+            
+            sdo.add(score);
+            
+            if (!confirm("계속하시겠습니까? (y/n)"))
+                break;
         }
         
+        for (int i = 0; i < sdo.size(); i++){
+            sdo.get(i).print();
+        }
         
-    }
+    }    
 }
-
-
-
-

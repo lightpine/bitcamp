@@ -13,6 +13,7 @@ public class Score5 {
     int math;
     int sum;
     float aver;
+    int divied;
 
     // 파라미터 없는 
     Score5(){

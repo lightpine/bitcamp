@@ -1,7 +1,7 @@
 package bitcamp.java100.ch06.ex1;
 
 // 인스턴스 초기화 문장
-public class Score10 {
+public class Score10 extends Score5 {
     // 메모리 설계 명령(필드 선언)
     // 변수 선언에 값을 할당하는 문장이 있으면,
     // 변수를 생성한 후에 바로 실행한다.
@@ -13,6 +13,7 @@ public class Score10 {
     int math;
     int sum;
     float aver;
+    double divied;
 
     //인스턴스 블록
     {

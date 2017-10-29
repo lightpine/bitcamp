@@ -1,15 +1,16 @@
-public class ScoreDao {
+package java100.app;
+public class ArrayList {
     
-    Score[] scores = new Score[10000];
+    Object[] list = new Object[10000];
     int cursor = 0;
     
     
-    void add(Score score) { // 여기서부터
-        if (this.cursor == this.scores.length) {
+    void add(Object obj) { // 여기서부터
+        if (this.cursor == this.list.length) {
             System.err.println("최대 저장 개수를 초과하였습니다.");
             return;
         }
-        this.scores[this.cursor++] = score;
+        this.list[this.cursor++] = obj;
         
     }
     
@@ -17,11 +18,11 @@ public class ScoreDao {
         return this.cursor;
     }
     
-    Score get(int index) {
+    Object get(int index) {
         if (index < 0 || index >= this.cursor) {
             return null;
         }
-        return this.scores[index];
+        return this.list[index];
     }
 
 }

@@ -1,3 +1,4 @@
+package java100.app;
 import java.util.Scanner;
 
 public class App {
@@ -13,7 +14,7 @@ public class App {
     }
     
     public static void main(String[] args) {
-        ScoreDao sdo = new ScoreDao();
+        ArrayList list = new ArrayList();
         
         while(true) {
             Score score = new Score();
@@ -22,14 +23,18 @@ public class App {
             if (!confirm("저장하시겠습니까? (y/n)"))
                 break;
             
-            sdo.add(score);
+            list.add(score);
             
             if (!confirm("계속하시겠습니까? (y/n)"))
                 break;
         }
         
-        for (int i = 0; i < sdo.size(); i++){
-            sdo.get(i).print();
+        for (int i = 0; i < list.size(); i++){
+            // list.get(i).print();
+            // Score s = (Score)list.get(i);
+            // s.print();
+            
+            ((Score)list.get(i)).print();
         }
         
     }    

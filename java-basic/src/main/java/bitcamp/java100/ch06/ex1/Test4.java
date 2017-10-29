@@ -5,7 +5,7 @@ package bitcamp.java100.ch06.ex1;
 // 인스턴스를 만들때 생성자 호출하기  
 public class Test4 {
 
-    
+ 
     public static void main(String[] args) {
 
         // 학생의 성적 정보를 저장할 변수를 준비하라
@@ -33,6 +33,7 @@ public class Test4 {
         
         //생성자는 따로 호출할 수 없다.
         //score.Score3(); // 컴파일 오류!!
+        
         
     }
 

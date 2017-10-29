@@ -1,6 +1,6 @@
 package bitcamp.java100.ch06.ex1;
 // 아주 특별한 인스턴스 메소드 "생성자(constructor)"
-public class Score3 {
+public class Score3 extends Score10 {
     // 메모리 설계 명령
     String name;
     int kor;
@@ -24,24 +24,23 @@ public class Score3 {
     
     Score3(){
         System.out.println("Score3() 호출됨");
-        this.name = "홍길동";
-        this.kor = 50;
-        this.eng = 50;
-        this.math = 50;
+        name = "홍길동";
+        kor = 50;
+        eng = 50;
+        math = 50;
         
-        this.compute();
+        compute();
         
         }
     
     // 메서드 선언
     
     // 메서드는 메모리를 다루는 명령어이기 때문에 메서드의 이름은 동사로 시작한다.
-    void compute() {
-        this.sum = this.kor + this.eng + this.math;
-        this.aver = this.sum / 3f;
-        
-        
-        
-    }
+     void compute() {
+        sum = kor + eng + math;
+        aver = sum / 3f;
+         
+     }
+     
     
 }

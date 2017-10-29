@@ -1,21 +1,25 @@
+package java100.app;
 import java.util.Scanner;
 
-//: ## 사용자 정의 데이터 타입
+//: ## 캡슐화 적용
 //: 학생의 성적을 저장할 때 사용할 사용자 정의 데이터 타입을 만든다. 
 //: > '사용자 정의 데이터 타입'은 데이터를 저장할 *메모리를 설계*하는 것이다.
+//: 모든 필드에 프로텍티브로 접근제어를 선언하라
+//: 
 public class Score {
-    String name;
-    int[] subjects; // 배열 변수는 주소가 지정되어있어야만 쓸수 있다.
-    int sum;
-    float aver;
-    int cursor;
-    Score[] scores = new Score[100];
     
-    Score(){ // 기본 생성자를 사용하면 인스턴스 변수에 배열이 있나 확인해봐
+    protected String name;
+    protected int[] subjects; // 배열 변수는 주소가 지정되어있어야만 쓸수 있다.
+    protected int sum;
+    protected float aver;
+    
+    // public으로 공개한다.
+   
+    public Score(){ // 기본 생성자를 사용하면 인스턴스 변수에 배열이 있나 확인해봐
         this.subjects = new int[3];
     } 
     
-    Score(String name, int kor, int eng, int math){
+    public Score(String name, int kor, int eng, int math){
         
         this.name = name;
         this.subjects = new int[]{kor, eng, math};
@@ -24,14 +28,14 @@ public class Score {
         
     }
     
-    void compute() {
+    protected void compute() {
         for (int sub : this.subjects) {
             this.sum += sub;
         }
         this.aver = (float)this.sum / this.subjects.length;
     }
     
-    void print() {
+    public void print() {
         System.out.printf("%-4s, %4d, %4d, %4d, %4d, %6.1f\n",  
                 this.name, 
                 this.subjects[0], 
@@ -40,7 +44,7 @@ public class Score {
                 this.sum, 
                 this.aver);
     }
-    void input(){ 
+    public void input(){ 
         Scanner keyScan = new Scanner(System.in);
         int cursor = 0;
         

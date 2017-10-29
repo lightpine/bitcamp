@@ -7,21 +7,27 @@ public class Test5 {
 
     public static void main(String[] args) throws Exception{
         
-        Vehicle[] cars = new Vehicle[10];
-        cars[0] = new Car();
+        // 다양한 타입의 객체주소를 보관할 배열을 만들어 보자! 
+        Object[] arr = new Object[100];
         
-        cars[0] = new Boat();
-        cars[0] = new Truck();
-        cars[0] = new Sedan();
+        // Object 클래스는 최상위 루트 클래스이다.
+        // 즉 자바의 모든 클래스의 조상이다.
+        // 따라서 Object의 레퍼런스 변수에는
+        // 어떤 타입의 객체라도 그 주소를 저장할 수 잇따.
+        // 그래서 보통 객체를 주소를 저장할 때 많이 사용한다.
+        arr[0] = new String("hello");
+        arr[1] = Integer.valueOf(100);
+        arr[2] = new File("./build.gradle");
         
-        Object[] objs = new Object[10];
-        objs[0] = new Car();
-        objs[1] = new String("hello");
-        objs[0] = new Integer(10);
-        objs[0] = new File("");
-        objs[0] = new StringBuffer();
-        objs[0] = new ServerSoket(9999);
+        // Object 레퍼런스는 모든 타입의 객체 주소를 담기 떄문에
+        // 너무 범위가 넓다.
+        // 특정 범위의 객체만 저장하고 싶다면
+        // 그 객체의 적절히 타입을 조정하라
+        // 예) Truck이나 Sedan 객체를 저장하고 싶다면
+        // 이 두 클래스의 조상 클래스를 레퍼런스 변수로 사용하라.
         
+        Car c1 = new Truck();
+        Car c2 = new Sedan();
         
         
     }

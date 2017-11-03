@@ -1,41 +1,41 @@
 package java100.app;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class App {
+    static Scanner keyScan = new Scanner(System.in);
 
-    static boolean confirm(String message) {
-        Scanner keyScan = new Scanner(System.in);
-        System.out.print(message);
-        while(keyScan.hasNextLine()) break;
-        String response = keyScan.nextLine().toLowerCase();
-        if (response.equals("y") || response.equals("yse")) 
-            return true;
-        return false;
-    }
-    
     public static void main(String[] args) {
-        ArrayList list = new ArrayList();
+        ScoreController scorecontrol = new ScoreController();
         
-        while(true) {
-            Score score = new Score();
-            score.input();
-            
-            if (!confirm("저장하시겠습니까? (y/n)"))
-                break;
-            
-            list.add(score);
-            
-            if (!confirm("계속하시겠습니까? (y/n)"))
-                break;
-        }
-        
-        for (int i = 0; i < list.size(); i++){
-            // list.get(i).print();
-            // Score s = (Score)list.get(i);
-            // s.print();
-            
-            ((Score)list.get(i)).print();
-        }
-        
+        loop:
+            while(true) {
+                System.out.print("성적관리> ");
+                String input = keyScan.nextLine();
+                
+                switch (input) {
+                case "add":    scorecontrol.doAdd(); break;
+                case "list":   scorecontrol.dolist(); break;
+                case "view":   scorecontrol.doView(); break;
+                case "delete": scorecontrol.dodelete(); break;
+                case "update": scorecontrol.doUpdate(); break;
+                case "quit":   doQuit(); break loop;
+                default: doError();
+                }
+                System.out.println();
+            }
     }    
+    
+    private static void doError() {
+        System.out.println("실행할 수 없는 명령입니다.");
+    }
+
+    private static void doQuit() {
+        System.out.println("프로그램을 종료합니다.");
+    }
+
+    
+
 }
+

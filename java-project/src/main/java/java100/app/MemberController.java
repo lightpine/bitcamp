@@ -1,0 +1,134 @@
+package java100.app;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
+
+public class MemberController {
+    
+    
+    private ArrayList<Member> list = new ArrayList<>();
+    static Scanner keyScan = new Scanner(System.in);
+    
+    public void execute() {
+        loop:
+            while(true) {
+                System.out.print("회원관리> ");
+                String input = keyScan.nextLine();
+                
+                switch (input) {
+                case "add":    this.doAdd(); break;
+                case "list":   this.dolist(); break;
+                case "view":   this.doView(); break;
+                case "delete": this.dodelete(); break;
+                case "update": this.doUpdate(); break;
+                case "main":   break loop;
+                default: 
+                    System.out.println("해당 명령이 없습니다.");
+                }
+                System.out.println();
+            }
+         
+     }
+    
+     private void doUpdate() {
+        String email = Prompts.input("이메일? ");
+        
+        Member member = null;
+        Iterator<Member> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            Member temp = iterator.next();
+            if(temp.email.equals(email)) {
+                member = temp;
+                break;
+            }
+        }
+        if (member == null) {
+            System.out.printf("'%s'의 회원 정보가 없습니다.\n", email);
+        }else {
+            member.update();
+            
+        }
+        
+    }
+
+     private void dodelete() {
+        System.out.println("회원 삭제");
+        String email = Prompts.input("이메일? ");
+        
+        Member member = null;
+        Iterator<Member> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            Member temp = iterator.next();
+            if(temp.email.equals(email)) {
+                member = temp;
+                break;
+            }
+        }
+        if (member == null) {
+            System.out.printf("'%s'의 회원 정보가 없습니다.\n", email);
+        } else {
+            if(Prompts.confirm2("정말 삭제하시겠습니까?(y/N)")) {
+                list.remove(member);
+                System.out.println("삭제하였습니다.");
+            }else {
+                System.out.println("삭제 취소하였습니다.");
+            }
+        }
+        
+        
+    }
+
+     private void doView() {
+        System.out.println("회원 상세 정보");
+        String email = Prompts.input("이메일? ");
+        
+        Member member = null;
+        Iterator<Member> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            Member temp = iterator.next();
+            if(temp.email.equals(email)) {
+                member = temp;
+                break;
+            }
+        }
+        if (member == null) {
+            System.out.printf("'%s'의 회원 정보가 없습니다.\n", email);
+        }else {
+            member.printDeteil();
+        }
+        
+    }
+
+     private void dolist() {
+        
+        System.out.println("회원 목록");
+        Iterator<Member> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            iterator.next().print();
+        }
+    }
+
+     private void doAdd() {
+        Member member;
+        System.out.println("회원 등록");
+            member = new Member();
+            member.add();
+            
+            boolean isExist = false;
+            Iterator<Member> iterator = list.iterator();
+            while (iterator.hasNext()) {
+                if(iterator.next().email.equals(member.email)) {
+                    isExist = true;
+                    break;
+                }
+            }
+            if (isExist) {
+                System.out.printf("이미 등록된 이메일 입니다.");
+            }else {
+                list.add(member);
+                
+            }
+    }
+}
+

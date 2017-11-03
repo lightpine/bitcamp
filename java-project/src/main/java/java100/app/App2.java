@@ -5,132 +5,70 @@ import java.util.Scanner;
 
 public class App2 {
     static Scanner keyScan = new Scanner(System.in);
+    static ScoreController scorecontrollre = new ScoreController();
+    static MemberController memberController = new MemberController();
+    static BoardController boardController = new BoardController();
     
-    
-    static String prompt(String message) {
-        System.out.print(message);
-        return keyScan.nextLine();
-    }
-    static boolean confirm(String message) {
-        
-        Scanner keyScan = new Scanner(System.in);
-        System.out.print(message);
-        String response = keyScan.nextLine().toLowerCase();
-        
-        if (response.equals("y") || response.equals("yes") || response.equals(""))
-            return true;
-        return false;
-    }
-
     public static void main(String[] args) {
-        ArrayList<Score> list = new ArrayList<>();
-        
         loop:
         while(true) {
-            System.out.print("성적관리>");
-            String input = keyScan.nextLine();
+            System.out.print("명령> ");
+            String[] menu = keyScan.nextLine().toLowerCase().split(" ");
             
-            String name = null;
-            Score score =null;
-            switch (input) {
-            case "add":
-                
-                System.out.println("학생 등록");
-                while (true) {
-                    score = new Score();
-                    score.add();
-                    list.add(score);
-                    if (!confirm("계속 하시겠습니까?(Y/n)"))
-                        break;
+            try {
+                switch (menu[0]) {
+                case "menu": domenu(); break;
+                case "help": doHelp(); break;
+                case "quit": doQuit(); break loop;
+                case "go"  : dogo(menu[1]); break;
+                default    : doError();
+                    
                 }
-                
-                break;
-            case "list":
-                
-                System.out.println("학생 목록");
-                
-                Iterator<Score> iterator = list.iterator();
-                
-                while (iterator.hasNext()) {
-                    iterator.next().print();
-                }
-                
-                break;
-            case "view":
-                
-                System.out.println("학생 성적 정보");
-                name = prompt("이름? ");
-                
-                score = null;
-                iterator = list.iterator();
-                while (iterator.hasNext()) {
-                    Score temp = iterator.next();
-                    if (temp.name.equals(name)) {
-                        score = temp;
-                        break;
-                    }
-                }
-                if (score == null) {
-                    System.out.printf("%s 의 성적 정보가 없습니다.\n", name);
-                }else {
-                    score.printDeteil();
-                }
-                break;
-            case "delete":
-                System.out.println("학생 정보 삭제");
-                name = prompt("이름? ");
-                
-                iterator = list.iterator();
-                while (iterator.hasNext()) {
-                    Score temp = iterator.next();
-                    if (temp.name.equals(name)) {
-                        score = temp;
-                        break;
-                    }
-                }
-                if (score == null) {
-                    System.out.printf("%s 의 성적 정보가 없습니다.\n", name);
-                }else {
-                    if (score.confirm2("정말 삭제하시겠습니까?(y/N)")) {
-                        list.remove(score);
-                        System.out.println("삭제되었습니다.");
-                    } else 
-                        System.out.println("삭제가 취소되었습니다.");
-                        
-                }
-                break;
-            case "update":
-                System.out.println("학생 정보 변경");
-                name = prompt("이름? ");
-                
-                iterator = list.iterator();
-                while (iterator.hasNext()) {
-                    Score temp = iterator.next();
-                    if (temp.name.equals(name)) {
-                        score = temp;
-                        break;
-                    }
-                }
-                if (score == null) {
-                    System.out.printf("%s 의 성적 정보가 없습니다.\n", name);
-                }else {
-                    score.update();
-                }
-                
-                
-                break;
-            case "quit":
-                System.out.println("프로그램을 종료 합니다.");
-                break loop;
-            default:
-                System.out.println("실행할 수 없는 명력어 입니다.");
+            }catch (Exception e) {
+                System.out.println("명령 처리 중 오류발생!");
             }
             System.out.println();
         }
+        
+    }
+    
+    private static void domenu() {
+        System.out.println("1성적관리");
+        System.out.println("2회원관리");
+        System.out.println("3게시판");
+    }
+
+    private static void dogo(String menuNo) {
+        switch(menuNo){
+        case "1": scorecontrollre.execute();
+            break;
+        case "2": memberController.execute();
+            break;
+        case "3": boardController.execute();
+            break;
+        default:
+            System.out.println("해당 번호의 메뉴가 없습니다.");
+            
+        }
             
     }
+    
+ private static void doHelp() {
+        
+        System.out.println("[명령]");
+        System.out.println("menu        - 메뉴 목록 출력합니다.");
+        System.out.println("go 번호     - 메뉴로 이동합니다.");
+        System.out.println("quit        - 프로그램을 종료합니다.");
+        
+    }
+
+    private static void doError() {
+        System.out.println("실행할 수 없는 명령입니다.");
+    }
+
+    private static void doQuit() {
+        System.out.println("프로그램을 종료합니다.");
+    }
+    
 }
-
-
-
 

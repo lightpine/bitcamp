@@ -2,13 +2,36 @@ package java100.app;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
 
 public class ScoreController {
     
     
     private ArrayList<Score> list = new ArrayList<>();
+    static Scanner keyScan = new Scanner(System.in);
     
-     public void doUpdate() {
+    public void execute() {
+        loop:
+            while(true) {
+                System.out.print("성적관리> ");
+                String input = keyScan.nextLine();
+                
+                switch (input) {
+                case "add":    this.doAdd(); break;
+                case "list":   this.dolist(); break;
+                case "view":   this.doView(); break;
+                case "delete": this.dodelete(); break;
+                case "update": this.doUpdate(); break;
+                case "main":   break loop;
+                default: 
+                    System.out.println("해당 명령이 없습니다.");
+                }
+                System.out.println();
+            }
+         
+     }
+    
+     private void doUpdate() {
         // System.out.println("[학생 정보 변경]");
         String name = Prompts.input("이름? ");
         
@@ -30,7 +53,7 @@ public class ScoreController {
         
     }
 
-     public void dodelete() {
+     private void dodelete() {
         System.out.println("학생 삭제");
         String name = Prompts.input("이름? ");
         
@@ -57,7 +80,7 @@ public class ScoreController {
         
     }
 
-     public void doView() {
+     private void doView() {
         System.out.println("학생 정보");
         String name = Prompts.input("이름? ");
         
@@ -78,7 +101,7 @@ public class ScoreController {
         
     }
 
-     public void dolist() {
+     private void dolist() {
         
         System.out.println("학생 목록");
         Iterator<Score> iterator = list.iterator();
@@ -87,7 +110,7 @@ public class ScoreController {
         }
     }
 
-     public void doAdd() {
+     private void doAdd() {
         Score score;
         System.out.println("학생 등록");
         while(true) {
@@ -100,5 +123,6 @@ public class ScoreController {
         }
         
     }
+     
 
 }

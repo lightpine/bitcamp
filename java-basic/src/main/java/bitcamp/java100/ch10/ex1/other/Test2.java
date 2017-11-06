@@ -1,7 +1,7 @@
 package bitcamp.java100.ch10.ex1.other;
 
 public class Test2 {
-    // static  nwsted class.
+    // static  nested class.
     static class A{}
     // non-static nested class - inner class
     class B{}

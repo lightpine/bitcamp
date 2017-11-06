@@ -1,7 +1,6 @@
-package java100.app;
+package java100.app.domain;
 
 import java.sql.Date;
-import java.util.Scanner;
 
 //: ## 캡슐화 적용
 //: 학생의 성적을 저장할 때 사용할 사용자 정의 데이터 타입을 만든다. 
@@ -24,7 +23,7 @@ public class Board {
         return "Board [no=" + no + ", title=" + title + ", main=" + main + ", day=" + day + ", viewer=" + viewer + "]";
     }
     
-
+    
     public int getNo() {
         return no;
     }
@@ -64,9 +63,13 @@ public class Board {
     public void setViewer(int viewer) {
         this.viewer = viewer;
     }
-
-    
-
-    
     
 }
+
+
+
+    
+
+    
+    
+

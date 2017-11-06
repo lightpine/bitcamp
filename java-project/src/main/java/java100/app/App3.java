@@ -3,6 +3,8 @@ package java100.app;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java100.app.domain.Score;
+
 public class App3 {
     static boolean confirm(String message) {
         Scanner scan = new Scanner(System.in);

@@ -1,13 +1,25 @@
-package java100.app;
+package java100.app.util;
 
 import java.util.Scanner;
 
 public class Prompts {
-    public static Scanner keyScan = new Scanner(System.in);
+    static Scanner keyScan = new Scanner(System.in);
+    
+    public static int inputInt(String message, Object...values) {
+        System.out.printf(message, values);
+        return Integer.parseInt(keyScan.nextLine());
+    }
+    public static String inputString(String message, Object...values) {
+        System.out.printf(message, values);
+        return keyScan.nextLine();
+    }
+    
+    @Deprecated
     public static String input(String message) {
         System.out.print(message);
         return keyScan.nextLine();
     }
+    
     public static boolean confirm(String message) {
         System.out.print(message);
         String response = keyScan.nextLine().toLowerCase();

@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import java100.app.contllor.BoardController;
+import java100.app.contllor.Controller;
 import java100.app.contllor.GenericController;
 import java100.app.contllor.MemberController;
 import java100.app.contllor.RoomController;
@@ -22,12 +23,14 @@ import java100.app.contllor.ScoreController;
 public class App {
     
     static Scanner keyScan = new Scanner(System.in);
-    static HashMap<String,GenericController<?>> controllerMap = new HashMap<>();
+    static HashMap<String,Controller> controllerMap = new HashMap<>();
+    
     public static void main(String[] args) {
         controllerMap.put("1", new ScoreController());
         controllerMap.put("2", new MemberController());
         controllerMap.put("3", new BoardController());
-        controllerMap.put("4", new RoomController());
+        
+        controllerMap.put("4", new RoomController()); // 컴파일 오류!
         
         
         //controllerMap.put("4", new GenericController<Room>()); 추상클래스를 직접 인스턴스 하면 안된다
@@ -60,7 +63,7 @@ public class App {
 
     private static void dogo(String menuNo) {
         
-        GenericController<?> controller = controllerMap.get(menuNo);
+        Controller controller = controllerMap.get(menuNo);
         
         if (controller == null) {
             System.out.println("해당 번호의 메뉴가 없습니다.");

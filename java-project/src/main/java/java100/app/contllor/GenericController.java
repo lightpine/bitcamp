@@ -13,5 +13,6 @@ public abstract class GenericController<T> implements Controller{
     protected ArrayList<T> list = new ArrayList<>();
     
     //public abstract void execute();
-    
+     
 }
+  

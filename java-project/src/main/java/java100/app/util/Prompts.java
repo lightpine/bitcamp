@@ -1,7 +1,7 @@
 package java100.app.util;
 
 import java.util.Scanner;
-
+ 
 public class Prompts {
     static Scanner keyScan = new Scanner(System.in);
     
@@ -15,7 +15,7 @@ public class Prompts {
     }
     
     @Deprecated
-    public static String input(String message) {
+    public static String input(String message) { 
         System.out.print(message);
         return keyScan.nextLine();
     }

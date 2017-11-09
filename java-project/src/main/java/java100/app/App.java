@@ -1,17 +1,17 @@
 package java100.app;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Scanner;
 
 import java100.app.contllor.BoardController;
 import java100.app.contllor.Controller;
-import java100.app.contllor.GenericController;
 import java100.app.contllor.MemberController;
 import java100.app.contllor.RoomController;
 import java100.app.contllor.ScoreController;
 
 /**
  * @author lightpine
- * 
+ *  
  * date : 2017_11_06_mon
  * 
  * 리팩토링 정리가 끝난 후 모습
@@ -25,17 +25,17 @@ public class App {
     static Scanner keyScan = new Scanner(System.in);
     static HashMap<String,Controller> controllerMap = new HashMap<>();
     
-    public static void main(String[] args) {
-        controllerMap.put("1", new ScoreController());
-        controllerMap.put("2", new MemberController());
-        controllerMap.put("3", new BoardController());
+    public static void main(String[] args) { 
+        controllerMap.put("1", new ScoreController("./data/score.csv"));
+        controllerMap.put("2", new MemberController("./data/member.csv"));
+        controllerMap.put("3", new BoardController("./data/board.csv"));
         
-        controllerMap.put("4", new RoomController()); // 컴파일 오류!
+        controllerMap.put("4", new RoomController("./data/room.csv")); // 컴파일 오류!
         
         
         //controllerMap.put("4", new GenericController<Room>()); 추상클래스를 직접 인스턴스 하면 안된다
         // 쓰지 말라고 만들어 놓은건 쓰지 말자!
-        loop:
+        loop: 
         while(true) {
             System.out.print("명령> ");
             String[] menu = keyScan.nextLine().toLowerCase().split(" ");
@@ -59,6 +59,7 @@ public class App {
         System.out.println("1성적관리");
         System.out.println("2회원관리");
         System.out.println("3게시판");
+        System.out.println("4강의실");
     }
 
     private static void dogo(String menuNo) {
@@ -86,7 +87,14 @@ public class App {
     }
 
     private static void doQuit() {
+        Collection<Controller> controls = controllerMap.values();
+        
+        for (Controller control : controls) {
+            control.destroy(); // 각 컨트롤러에게 마무리 기회를 준다.
+        }
+        
         System.out.println("프로그램을 종료합니다.");
+        
     }
     
    

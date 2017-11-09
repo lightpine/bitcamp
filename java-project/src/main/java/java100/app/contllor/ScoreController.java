@@ -1,5 +1,8 @@
 package java100.app.contllor;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -7,6 +10,49 @@ import java100.app.domain.Score;
 import java100.app.util.Prompts;
 
 public class ScoreController extends GenericController<Score> {
+ 
+    private String dataFilePath;
+    
+    public ScoreController(String dataFilePath) {
+        this.dataFilePath = dataFilePath;
+        this.init(); 
+    }
+    
+    @Override
+    public void destroy() {
+            try (FileWriter out = new FileWriter(this.dataFilePath);){
+                for (Score score : this.list) {
+                    out.write(score.toCSVString()+ "\n");
+            }
+                
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @Override
+    public void init() {
+        try (
+                FileReader in = new FileReader(this.dataFilePath);
+                Scanner lineScan = new Scanner(in);){// 파일리더를 스캐너에 넣고
+            
+            String csv = null;
+            
+            while (lineScan.hasNextLine()) { // 한줄씩 출력해 내는 기본 코어 코딩!
+                csv = lineScan.nextLine();
+                try {
+                    
+                    list.add(new Score(csv));
+                    
+                } catch (CSVFormatException e) {
+                    
+                    System.out.println("CSV데이터 형식 오류!");
+                    e.printStackTrace();
+                }
+            }
+        }catch (IOException e) {e.printStackTrace();}
+        
+}
     
     @Override
     public void execute() {
@@ -39,7 +85,7 @@ public class ScoreController extends GenericController<Score> {
         
         score.setEng(Prompts.inputInt("영어? "));
         
-        score.setMath(Prompts.inputInt("수학?"));
+        score.setMath(Prompts.inputInt("수학? "));
         
         list.add(score);
     }

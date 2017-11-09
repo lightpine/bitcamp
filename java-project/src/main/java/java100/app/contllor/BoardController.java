@@ -1,14 +1,63 @@
 package java100.app.contllor;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.Iterator;
+import java.util.Scanner;
 
 import java100.app.domain.Board;
+import java100.app.domain.Member;
 import java100.app.util.Prompts;
 
 public class BoardController extends GenericController<Board> {
     
+    private String dataFilePath;
+    
+    public BoardController(String dataFilePath) {
+        this.dataFilePath = dataFilePath;
+        this.init();
+    }
+     
     @Override
+    public void destroy() {
+            try (FileWriter out = new FileWriter(this.dataFilePath);){
+                for (Board board : this.list) {
+                    out.write(board.toCSVString()+ "\n");
+            }
+                
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @Override
+    public void init() {
+        try (
+                FileReader in = new FileReader(this.dataFilePath);
+                Scanner lineScan = new Scanner(in);){// 파일리더를 스캐너에 넣고
+            
+            String csv = null;
+            
+            while (lineScan.hasNextLine()) { // 한줄씩 출력해 내는 기본 코어 코딩!
+                csv = lineScan.nextLine();
+                
+                try {
+                    
+                    list.add(new Board(csv));
+                    
+                } catch (CSVFormatException e) {
+                    
+                    System.out.println("CSV데이터 형식 오류!");
+                    e.printStackTrace();
+                }
+            }
+        }catch (IOException e) {e.printStackTrace();}
+        
+}
+    
+    @Override 
     public void execute() {
         loop:
             while(true) {
@@ -58,10 +107,11 @@ public class BoardController extends GenericController<Board> {
         Iterator<Board> iterator = list.iterator();
         while (iterator.hasNext()) {
             Board board = iterator.next();
-            System.out.printf("%d, %s, %s, %d\n",  
+            System.out.printf("%d, %s, %s, %s, %d\n",  
                     board.getNo(), 
                     board.getTitle(),
-                    board.getMain().toString(),
+                    board.getMain(),
+                    board.getDay().toString(),
                     board.getViewer());
         }
     }

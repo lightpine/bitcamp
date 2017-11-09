@@ -1,6 +1,5 @@
 package java100.app.domain;
-import java.util.Arrays;
-import java.util.Scanner;
+import java100.app.contllor.CSVFormatException;
 
 //: ## 캡슐화 적용
 //: 학생의 성적을 저장할 때 사용할 사용자 정의 데이터 타입을 만든다. 
@@ -18,18 +17,57 @@ public class Score {
 
     //: ### 생성자
     //: > 다른 패키지에서도 호출할 수 있도록 public으로 공개한다.
-    public Score() {}
+    public Score(String csv) throws CSVFormatException {
+        String[] rec = csv.split(",");
+        
+        if (rec.length < 4) // 데이터의 개수가 올바르지 않다면 이 데이터는 건너 뛴다. 
+            throw new CSVFormatException(
+                    "CSV 데이터 항목의 개수 올바르지 않습니다.");
+        
+        try {
+            
+            this.name = rec[0];
+            this.kor  = Integer.parseInt(rec[1]);
+            this.eng  = Integer.parseInt(rec[2]);
+            this.math = Integer.parseInt(rec[3]);
+            this.compute();
+            
+        } catch (Exception e) {
+            
+            throw new CSVFormatException(
+                    "CSV 데이터 항목의 형식이 올바르지 않습니다.");
+        }
+    }
     
     public Score(String name, int kor, int eng, int math) {
         this.name = name;
         this.kor = kor;
-        this.eng = eng;
+        this.eng = eng; 
         this.math = math;
         
         this.compute();
     }
     
+    public Score() {
+        
+    }
     
+    @Override
+    public String toString() {
+        return "Score [name= " + name + ", kor= " + kor + ", eng= " + eng + ", math= " + math + ", sum= " + sum + ", aver= "
+                + aver + "]";
+    }
+    
+    public String toCSVString() {
+        return String.format("%s,%d,%d,%d,%d,%.1f",
+                this.getName(),
+                this.getKor(),
+                this.getEng(),
+                this.getMath(),
+                this.getSum(),
+                this.getAver());
+    }
+
     public String getName() {
         return name;
     }

@@ -19,6 +19,12 @@ public class Test2 {
         
         System.out.println("디렉토리 삭제 = " + file2.delete());
         
+        File file3 = new File("aaa/bbb/ccc/test.txt");
+        
+        System.out.println("디렉토리 생성2 = " + file3.mkdir());
+        
+        System.out.println("디렉토리 생성3 = " + file3.mkdirs());
+        
         
         
     }

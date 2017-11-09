@@ -1,4 +1,4 @@
-package java100.app.contllor;
+package practice.controller;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import java100.app.domain.Room;
-import util.Prompts;
+import practice.domain.Room;
+import practice.util.Prompts;
 
 public class RoomController extends ArrayList<Room> implements Controller {
     

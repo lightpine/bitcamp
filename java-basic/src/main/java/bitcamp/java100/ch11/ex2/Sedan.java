@@ -7,14 +7,14 @@ public class Sedan {
     
     public void run() {
         if (isOpen) {
-            System.out.println("시원하게 달린다!");
+            System.out.println("시원하게 달린다.");
         } else {
-            System.out.println("포근하게 달린다!");
+            System.out.println("포근하게 달린다.");
         }
     }
     
     public void stop() {
-        System.out.println("멈춘다!");
+        System.out.println("멈춘다.");
     }
     
     public void openSunroof() {
@@ -27,3 +27,14 @@ public class Sedan {
         System.out.println("썬루프 닫는다.");
     }
 }
+
+
+
+
+
+
+
+
+
+
+

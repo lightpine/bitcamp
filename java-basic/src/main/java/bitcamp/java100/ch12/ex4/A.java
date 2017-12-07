@@ -1,6 +1,7 @@
+// 인터페이스 구현
 package bitcamp.java100.ch12.ex4;
 
-public class A implements Protocol{
+public class A implements Protocol {
 
     @Override
     public void m1() {
@@ -11,5 +12,5 @@ public class A implements Protocol{
     public void m2() {
         System.out.println("m2()");
     }
-    
+
 }

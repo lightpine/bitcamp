@@ -1,50 +1,30 @@
 package java100.app.domain;
 
-import java.sql.Date;
 
-import java100.app.contllor.CSVFormatException;
- 
 public class Room {
+    protected int no;
     protected String location;
     protected String name;
     protected int capacity;
     
-    public Room(){}
+    public Room() {}
     
-    public Room(String location,String name, int capacity){
+    public Room(int no, String location, String name, int capacity) {
+        this.no = no;
         this.location = location;
-        this.name = name; 
+        this.name = name;
         this.capacity = capacity;
     }
     
-    public Room (String csv) throws CSVFormatException{
-        String[] rec = csv.split(",");
-        
-        if (rec.length != 3) // 데이터의 개수가 올바르지 않다면 이 데이터는 건너 뛴다. 
-            throw new CSVFormatException(
-                    "CSV 데이터 항목의 개수 올바르지 않습니다.");
-        try {
-            this.location = rec[0];
-            this.name = rec[1];
-            this.capacity  = Integer.parseInt(rec[2]);
-        } catch (Exception e) {
-            throw new CSVFormatException(
-                    "CSV 데이터 항목의 개수 올바르지 않습니다.");
-        }
-            
+    
+    public int getNo() {
+        return no;
     }
 
-    @Override
-    public String toString() {
-        return "Room [location=" + location + ", name=" + name + ", capacity=" + capacity + "]";
+    public void setNo(int no) {
+        this.no = no;
     }
-    
-    public String toCSVString() {
-        return String.format("%s,%s,%d",
-                this.getLocation(),
-                this.getName(),
-                this.getCapacity());
-    }
+
 
     public String getLocation() {
         return location;
@@ -69,5 +49,6 @@ public class Room {
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
+    
     
 }

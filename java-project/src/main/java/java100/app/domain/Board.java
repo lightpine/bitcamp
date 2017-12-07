@@ -2,55 +2,28 @@ package java100.app.domain;
 
 import java.sql.Date;
 
-import java100.app.contllor.CSVFormatException;
-
-//: ## 캡슐화 적용
-//: 학생의 성적을 저장할 때 사용할 사용자 정의 데이터 타입을 만든다. 
-//: > '사용자 정의 데이터 타입'은 데이터를 저장할 *메모리를 설계*하는 것이다.
-//: 모든 필드에 프로텍티브로 접근제어를 선언하라
-//: 
-public class Board {  
+public class Board {
     
     protected int no;
-    protected String title; 
-    protected String main;
-    protected Date day;
-    protected int viewer;
+    protected String title;
+    protected String content;
+    protected Date regDate;
+    protected int viewCount;
     
- 
     public Board() {}
     
-    public Board (String csv) throws CSVFormatException{
-        String[] rec = csv.split(",");
-        
-        if (rec.length != 5) // 데이터의 개수가 올바르지 않다면 이 데이터는 건너 뛴다. 
-            throw new CSVFormatException(
-                    "CSV 데이터 항목의 개수 올바르지 않습니다.");
-        try {
-            this.no = Integer.parseInt(rec[0]);
-            this.title = rec[1];
-            this.main  = rec[2];
-            this.day  = Date.valueOf(rec[3]);
-            this.viewer  = Integer.parseInt(rec[4]);
-        } catch (Exception e) {
-            throw new CSVFormatException(
-                    "CSV 데이터 항목의 개수 올바르지 않습니다.");
-        }
-            
+    public Board(int no, String title, String content, Date date, int view) {
+        this.no = no;
+        this.title = title;
+        this.content = content;
+        this.regDate = date;
+        this.viewCount = view;
     }
     
     @Override
     public String toString() {
-        return "Board [no=" + no + ", title=" + title + ", main=" + main + ", day=" + day + ", viewer=" + viewer + "]";
-    }
-    
-    public String toCSVString() {
-        return String.format("%d,%s,%s,%s,%d",
-                this.getNo(),
-                this.getTitle(),
-                this.getMain(),
-                this.getDay().toString(),
-                this.getViewer());
+        return "Board [no=" + no + ", title=" + title + ", content=" + content + ", regDate=" + regDate + ", viewCount="
+                + viewCount + "]";
     }
     
     public int getNo() {
@@ -69,36 +42,38 @@ public class Board {
         this.title = title;
     }
 
-    public String getMain() {
-        return main;
+    public String getContent() {
+        return content;
     }
 
-    public void setMain(String main) {
-        this.main = main;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public Date getDay() {
-        return day;
+    public Date getRegDate() {
+        return regDate;
     }
 
-    public void setDay(Date day) {
-        this.day = day;
+    public void setRegDate(Date regDate) {
+        this.regDate = regDate;
     }
 
-    public int getViewer() {
-        return viewer;
+    public int getViewCount() {
+        return viewCount;
     }
 
-    public void setViewer(int viewer) {
-        this.viewer = viewer;
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
     }
     
 }
 
 
 
-    
 
-    
-    
+
+
+
+
+
 

@@ -1,13 +1,12 @@
-package java100.app.domain;
-import java100.app.contllor.CSVFormatException;
-
 //: ## 캡슐화 적용
-//: 학생의 성적을 저장할 때 사용할 사용자 정의 데이터 타입을 만든다. 
-//: > '사용자 정의 데이터 타입'은 데이터를 저장할 *메모리를 설계*하는 것이다.
-//: 모든 필드에 프로텍티브로 접근제어를 선언하라
+//: - 모든 필드에 대해 외부 접근을 차단한다.
+//:   단 자식 클래스에서는 직접 접근할 수 있게 허락한다.
 //: 
+package java100.app.domain;
+
 public class Score {  
     
+    protected int no;
     protected String name;
     protected int kor;
     protected int eng;
@@ -15,57 +14,31 @@ public class Score {
     protected int sum;
     protected float aver;
 
-    //: ### 생성자
-    //: > 다른 패키지에서도 호출할 수 있도록 public으로 공개한다.
-    public Score(String csv) throws CSVFormatException {
-        String[] rec = csv.split(",");
-        
-        if (rec.length < 4) // 데이터의 개수가 올바르지 않다면 이 데이터는 건너 뛴다. 
-            throw new CSVFormatException(
-                    "CSV 데이터 항목의 개수 올바르지 않습니다.");
-        
-        try {
-            
-            this.name = rec[0];
-            this.kor  = Integer.parseInt(rec[1]);
-            this.eng  = Integer.parseInt(rec[2]);
-            this.math = Integer.parseInt(rec[3]);
-            this.compute();
-            
-        } catch (Exception e) {
-            
-            throw new CSVFormatException(
-                    "CSV 데이터 항목의 형식이 올바르지 않습니다.");
-        }
-    }
+    public Score() {}
     
-    public Score(String name, int kor, int eng, int math) {
+    public Score(int no, String name, int kor, int eng, int math) {
+        this.no = no;
         this.name = name;
         this.kor = kor;
-        this.eng = eng; 
+        this.eng = eng;
         this.math = math;
         
         this.compute();
     }
     
-    public Score() {
-        
-    }
     
     @Override
     public String toString() {
-        return "Score [name= " + name + ", kor= " + kor + ", eng= " + eng + ", math= " + math + ", sum= " + sum + ", aver= "
-                + aver + "]";
+        return "Score [no=" + no + ", name=" + name + ", kor=" + kor + ", eng=" + eng + ", math=" + math + ", sum="
+                + sum + ", aver=" + aver + "]";
     }
     
-    public String toCSVString() {
-        return String.format("%s,%d,%d,%d,%d,%.1f",
-                this.getName(),
-                this.getKor(),
-                this.getEng(),
-                this.getMath(),
-                this.getSum(),
-                this.getAver());
+    public int getNo() {
+        return no;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
     }
 
     public String getName() {
@@ -111,12 +84,9 @@ public class Score {
         return aver;
     }
 
-    //: > 내부에서만 사용할 메서드이기 때문에 공개하지 않는다.
     private void compute() {
         this.sum = this.kor + this.eng + this.math;
         this.aver = this.sum / 3f;
     }
-    
-
     
 }

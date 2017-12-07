@@ -1,0 +1,20 @@
+
+select * from test18
+where regdt = '2017-6-17';
+
+select * from test18
+where regdt between '2017-11-1' and '2017-12-31';
+
+select * from test18
+where regdt >= '2017-11-1' and regdt <= '2017-12-31';
+
+select now();
+
+select now() + 12;
+
+select date_add(now(), interval 11 day);
+select date_sub(now(), interval 11 day);
+select datediff(curdate(), '2017-9-18');
+
+select date_format(now(), '%m/%e/%Y');
+select date_format('2017-9-7', '%m/%e/%Y');

@@ -12,6 +12,7 @@ apply plugin: 'java'
 // Apply the application plugin to add support for building an application
 apply plugin: 'application'
 
+// eclipse
 apply plugin: 'eclipse'
 
 eclipse {
@@ -43,6 +44,7 @@ javadoc{
 
     options.encoding = 'utf8'
 }
+
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use jcenter for resolving your dependencies.
@@ -51,6 +53,15 @@ repositories {
 }
 
 dependencies {
+    // Spring IoC 컨테이너 라이브러리 
+    compile 'org.springframework:spring-context:5.0.2.RELEASE'
+    
+    // Reflection 작업을 도와주는 라이브러리
+    compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
+
+    // MYSQL DBMS의 JDBC Driver
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
+
     // This dependency is found on compile classpath of this component and consumers.
     compile 'com.google.guava:guava:22.0'
 

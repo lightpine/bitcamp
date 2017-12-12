@@ -8,11 +8,8 @@
 
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
-
-// Apply the application plugin to add support for building an application
-apply plugin: 'application'
-// eclipse
-apply plugin: 'eclipse'
+// eclipse WTP
+apply plugin: 'eclipse-wtp'
 // war
 apply plugin: 'war'
 
@@ -77,7 +74,4 @@ dependencies {
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
 }
-
-// Define the main class for the application
-mainClassName = 'App'
 

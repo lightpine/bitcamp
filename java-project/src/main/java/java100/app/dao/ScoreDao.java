@@ -1,15 +1,17 @@
 package java100.app.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import java100.app.domain.Score;
 
 public interface ScoreDao {
 
-    List<Score> selectList();
+    List<Score> findAll(Map<String, Object> params);
     int insert(Score score);
     int update(Score score);
     int delete(int no);
-    Score selectOne(int no); 
+    int countAll();
+    Score findByNo(int no); 
 
 }

@@ -86,7 +86,7 @@ public class Score {
 
     private void compute() {
         this.sum = this.kor + this.eng + this.math;
-        this.aver = this.sum / 3f;
+        this.aver = Float.parseFloat(String.format("%.1f", this.sum / 3f));
     }
     
 }

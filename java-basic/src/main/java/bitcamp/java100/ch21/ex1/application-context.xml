@@ -9,6 +9,6 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
     
     
-    <context:component-scan base-package="bitcamp.java100.ch20.ex15"/>
+    <context:component-scan base-package="bitcamp.java100.ch21.ex1"/>
     
 </beans>

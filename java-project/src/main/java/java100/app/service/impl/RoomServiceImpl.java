@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java100.app.dao.RoomDao;
-import java100.app.domain.Board;
 import java100.app.domain.Room;
 import java100.app.service.RoomService;
 
@@ -20,8 +19,6 @@ public class RoomServiceImpl implements RoomService{
     @Override
     public List<Room> list(int pageNo, int pageSize, Map<String, Object> options) {
         
-        System.out.println(pageNo);
-        System.out.println(pageSize);
         HashMap<String,Object> params = new HashMap<>();
         params.put("startIndex", ((pageNo - 1) * pageSize)) ;
         params.put("size", pageSize);

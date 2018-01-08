@@ -19,13 +19,7 @@
 
 <h1>강의실 목록</h1>
 
-<div class="toolbar">
-<a href='form' class='btn btn-outline-info btn-sm'>추가</a>
-<form action="list" method="get" class="searchbox">
-<input type="text" name="loc">
-<button>검색</button>
-</form>
-</div>
+<jsp:include page="../listToolbar.jsp"/>
 
 <table class='table table-hover'>
 <thead>

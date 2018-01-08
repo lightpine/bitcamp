@@ -30,10 +30,17 @@
         <include refid="select1"/>
         from ex_memb
         
-        <if test="names != nill">
+        <if test="words != nill">
             <where>
-                <foreach collection="names" item="name">
-                    or name like '${name}%'
+                name in 
+                <foreach collection="words" item="word" 
+                         open="(" close=")" separator=",">
+                    #{word}
+                </foreach>
+                or email in 
+                <foreach collection="words" item="word" 
+                         open="(" close=")" separator=",">
+                    #{word}
                 </foreach>
             </where>
         </if>

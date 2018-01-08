@@ -21,7 +21,7 @@ public class RoomController {
     public String list(
             @RequestParam(value="pn", defaultValue="1") int pageNo,
             @RequestParam(value="ps", defaultValue="5") int pageSize,
-            @RequestParam(value="loc", required=false) String[] locations,
+            @RequestParam(value="words", required=false) String[] words,
             @RequestParam(value="oc", required=false) String orderColumn,
             @RequestParam(value="al", required=false) String align,
             Model model) throws Exception {
@@ -34,8 +34,10 @@ public class RoomController {
             pageSize = 5;
         }
         
-        HashMap<String, Object> options = new HashMap<>();
-        options.put("locations", locations);
+        HashMap<String,Object> options = new HashMap<>();
+        if (words != null && words[0].length() > 0) {
+            options.put("words", words);
+        }
         options.put("orderColumn", orderColumn);
         options.put("align", align);
         

@@ -18,18 +18,12 @@
 
 <h1>게시물 목록</h1>
 
-<div class="toolbar">
-<a href='form' class='btn btn-outline-info btn-sm'>추가</a>
-<form action="list" method="get" class="searchbox">
-<input type="text" name="title">
-<button>검색</button>
-</form>
-</div>
+<jsp:include page="../listToolbar.jsp"/>
 
 <table class='table table-hover'>
 <thead>
 <tr>
-<th>번호</th><th>제목</th><th>작성</th><th>생성일</th><th>조회수</th>
+<th>번호</th><th>제목</th><th>작성자</th><th>생성일</th><th>조회수</th>
 </tr>
 </thead>
 <tbody>
@@ -37,10 +31,21 @@
 </jsp:useBean>
 
 <c:forEach items="${list}" var="board">
+    <c:set var="title" value="${fn:length(board.title) == 0 ?
+     '(제목이 없습니다)' : board.title}"/>
+    
         <tr>
         <td>${board.no}</td>
-        <td><a href='${board.no}'>${fn:substring(board.title, 0, 20)}
-        ${(fn:length(board.title) > 20) ? '...' : ''}</a></td>
+        <%--
+        <td><a href='${board.no}'>${fn:substring(title, 0, 20)}
+        ${(fn:length(title) > 20) ? '...' : ''}</a></td>
+         --%>
+        <td>
+        <a href='${board.no}'>
+        <span class="d-inline-block text-truncate" 
+                style="max-width: 300px;">${title}</span>
+        </a>
+        </td>
         <td>${board.writer.name}</td>
         <td>${board.regDate}</td>
         <td>${board.viewCount}</td>

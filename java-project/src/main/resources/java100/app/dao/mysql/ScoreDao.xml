@@ -19,10 +19,10 @@
         <include refid="select1"/>
         from ex_score
         
-        <if test="names != nill">
+        <if test="words != nill">
             <where>
-                <foreach collection="names" item="name">
-                    or name like '${name}%'
+                <foreach collection="words" item="word">
+                    or name like '${word}%'
                 </foreach>
             </where>
         </if>

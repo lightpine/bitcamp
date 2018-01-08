@@ -25,11 +25,17 @@
             capacity
         from ex_room
         
-        <if test="locations != null">
+        <if test="words != null">
             <where>
-                
-                <foreach collection="locations" item="location">
-                    or loc like '${location}%'
+                name in 
+                <foreach collection="words" item="word" 
+                         open="(" close=")" separator=",">
+                    #{word}
+                </foreach>
+                or loc in 
+                <foreach collection="words" item="word" 
+                         open="(" close=")" separator=",">
+                    #{word}
                 </foreach>
             </where>
         </if>

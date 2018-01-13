@@ -71,6 +71,7 @@ public class BoardController {
     }
 
     @RequestMapping("add")
+    //@Transactional
     public String add(
             Board board,
             MultipartFile[] file,

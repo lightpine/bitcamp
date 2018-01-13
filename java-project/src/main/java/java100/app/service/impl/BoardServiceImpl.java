@@ -51,15 +51,11 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public int add(Board board) {
+    //@Transactional(propagation=Propagation.NEVER)
+    public int add(Board board){
         int count = boardDao.insert(board);
         
-        List<UploadFile> files = board.getFiles();
-        
-        for (UploadFile file : files) {
-//            file.setBoardNo(board.getNo());
-            fileDao.insert(file);
-        }
+        addFiles(board.getFiles(), board.getNo());
         
         return count;
     }
@@ -70,12 +66,7 @@ public class BoardServiceImpl implements BoardService{
         
         fileDao.deleteAllByBoradNo(board.getNo());
         
-        List<UploadFile> files = board.getFiles();
-        
-        for (UploadFile file : files) {
-            file.setBoardNo(board.getNo());
-            fileDao.insert(file);
-        }
+        addFiles(board.getFiles(), board.getNo());
         
         return count;
     }
@@ -84,10 +75,16 @@ public class BoardServiceImpl implements BoardService{
     public int delete(int no) {
         
         //fileDao.deleteAllByBoradNo(no);
-        
-        
         return boardDao.delete(no);
-        
     }
-
+    
+    @Override
+    //@Transactional
+    public void addFiles(List<UploadFile> files, int boardNo) {
+        
+        for (UploadFile file : files) {
+            file.setBoardNo(boardNo);
+            fileDao.insert(file);
+        }
+    }
 }

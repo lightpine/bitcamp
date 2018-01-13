@@ -69,7 +69,7 @@
                 vwcnt asc
             </when>
             <otherwise>
-                no asc
+                no desc
             </otherwise>
         </choose>
         
@@ -107,7 +107,8 @@
         select count(*) from ex_board
     </select>
     
-    <insert id="insert" parameterType="board" useGeneratedKeys="true" keyColumn="no" keyProperty="no">
+    <insert id="insert" parameterType="board" 
+        useGeneratedKeys="true" keyColumn="no" keyProperty="no">
         insert into ex_board(title,conts,regdt,mno)
         values(#{title},#{content},now(),#{writer.no})
     </insert>

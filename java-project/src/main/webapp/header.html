@@ -30,17 +30,19 @@
 </nav>
 
 <script type="text/javascript">
-$.getJSON('../json/auth/loginUser', function(result) {
+$.getJSON('../json/auth/signinUser', function(result) {
     if (result.status == 'fail') {
         location.href = '../auth/form.html';
         return;
     }
     
     $('#username').html(result.member.name);
+    
+    $(document.body).trigger('signin', {'status' : 'success'});
 });
 
-$('#logoutBtn').click(() => {
-    $.getJSON('../json/auth/logout', (result) => {
+$('#signoutBtn').click(() => {
+    $.getJSON('../json/auth/signout', (result) => {
         console.log(result);
         location.href = '../auth/form.html';
     });

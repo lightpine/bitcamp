@@ -24,7 +24,6 @@
 </nav>
 
 <table class='table table-hover' id="list">
-
 <thead>
 <tr>
     <th>No</th><th>Name</th><th>Sum</th><th>Aver</th>
@@ -48,23 +47,22 @@
         
     </ul>
 </nav>
-<footer>
-</footer>
+<footer></footer>
 </div>
 
 <script id="template1" type="text/x-handlebars-template">
 {{#each list}}
 <tr>
-<td>{{no}}</td> 
-<td><a href="form.html?no={{no}}">{{name}}</a></td> 
-<td>{{sum}}</td>
-<td>{{aver}}</td>
+  <td>{{no}}</td>
+  <td><a href="form.html?no={{no}}">{{name}}</a></td>
+  <td>{{sum}}</td>
+  <td>{{aver}}</td>
 </tr>
 {{/each}}
 </script>
 
 <script src='../node_modules/handlebars/dist/handlebars.min.js'></script>
-<script src='../node_modules/jquery/dist/jquery.slim.min.js'></script>
+<script src='../node_modules/jquery/dist/jquery.min.js'></script>
 <script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 
@@ -72,20 +70,22 @@
 <script type="text/javascript">
 
 var words = $('#words'),
-    searchBtn = $('#searchBtn'),
-    prevBtn = $('#prevBtn'),
-    currBtn = $('#currBtn'),
-    nextBtn = $('#nextBtn'),
-    tbody = $('#list > tbody'),
-    currPageNo = 1,
-    member = null,
-    template1Src = $('#template1').html(),
-    template1Engine = Handlebars.compile(template1Src);
+	prevBtn = $('#prevBtn'),
+	currBtn = $('#currBtn'),
+	nextBtn = $('#nextBtn'),
+	tbody = $('#list > tbody'),
+	currPageNo = 1,
+	template1Src = $('#template1').html(),
+	template1Engine = Handlebars.compile(template1Src);
+
+
+$(document.body).on('signin', (event, obj) => {
+console.log('로그인 정보 가져오기:', obj.status);
+load(1);
+});
 
 // 서버에서 목록 데이터를 가져온다.
-$('header').load('../header.html', () => {
-    load(1);
-});
+$('header').load('../header.html');
 
 $('footer').load('../footer.html');
 

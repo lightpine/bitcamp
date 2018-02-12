@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>템플릿 사용 예</h1>
+
+    <div id="d1"></div>
+
+
+    <script src='../node_modules/bootstrap/dist/handlebars.min.js'></script>
+    <script src='../node_modules/bootstrap/dist/jquery.min.js'></script>
+
+    <script id="t1" type="text/x-handlebars-template">
+        {{#each list}}
+        <p>{{name}}({{email}})</p>
+        {{/each}}
+      </script>
+
+<script type="text/javascript">
+
+let templateSrc = $('#t1').html();
+let template = Handlebars.compile(templateSrc);
+
+let dataObj = {list : [
+    {name: '홍길동',email: 'hong@test.com'},
+    {name: '홍길동2',email: 'hong2@test.com'},
+    {name: '홍길동3',email: 'hong3@test.com'},
+    {name: '홍길동4',email: 'hong4@test.com'},
+    {name: '홍길동5',email: 'hong5@test.com'}
+    ]};
+
+let html = template(dataObj);
+
+$('#d1').html(html);
+
+</script>
+      
+</body>
+</html>

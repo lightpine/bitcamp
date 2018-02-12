@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>템플릿 사용 예</h1>
+
+    <div id="d1"></div>
+
+
+    <script src='./node_modules/handlebars/dist/handlebars.min.js'></script>
+    <script src='./node_modules/jquery/dist/jquery.min.js'></script>
+
+    <script id="t1" type="text/x-handlebars-template">
+        <p>{{name}}({{email}})</p>
+      </script>
+
+<script type="text/javascript">
+
+let templateSrc = $('#t1').html();
+let template = Handlebars.compile(templateSrc);
+
+let dataObj = {
+		name: '홍길동',
+		email: 'hong@test.com'
+};
+
+let html = template(dataObj);
+
+$('#d1').html(html);
+
+</script>
+      
+</body>
+</html>

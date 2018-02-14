@@ -1,6 +1,6 @@
 package java100.app.web;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -14,15 +14,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import java100.app.dao.MemberDao;
 import java100.app.domain.Member;
+import java100.app.service.FacebookService;
+import java100.app.service.MemberService;
 
 @Controller
 @RequestMapping("/auth")
 @SessionAttributes("signinUser")
 public class SigninController {
     
-    @Autowired MemberDao memberDao;
+    @Autowired MemberService memberService;
+    @Autowired FacebookService facebookService;
     
     @RequestMapping(value="signin", method=RequestMethod.GET)
     public String from(Model model) {
@@ -39,12 +41,7 @@ public class SigninController {
             Model model
             ) {
         
-        HashMap<String, Object> params = new HashMap<>();
-        
-        params.put("email", email);
-        params.put("password", password);
-        
-        Member member = memberDao.findByEmailAndPassword(params);
+        Member member = memberService.get(email, password);
         
         if (saveEmail != null) {
             
@@ -64,6 +61,36 @@ public class SigninController {
         }
         model.addAttribute("signinUser", member);
         return "redirect:../score/list";
+    }
+    
+    @RequestMapping(value="facebookLogin")
+    public String facebookLogin(
+            String accessToken,
+            HttpServletResponse response,
+            HttpSession session,
+            Model model) {
+
+        try {
+            @SuppressWarnings("rawtypes")
+            Map result = facebookService.me(accessToken, Map.class);
+            
+            Member member = memberService.get((String)result.get("email"));
+            
+            if (member == null) {
+                member = new Member();
+                member.setName((String)result.get("name"));
+                member.setEmail((String)result.get("email"));
+                member.setPassword("1111");
+                memberService.add(member);
+            }
+            
+            model.addAttribute("signinUser", member);
+            return "redirect:../score/list";
+           
+        } catch (Exception e) {
+            // 엑세스토큰 무효하다면 예외 발생
+            return "auth/signinfail";
+        }
     }
     
     @RequestMapping("signout")

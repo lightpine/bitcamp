@@ -1,6 +1,7 @@
 package java100.app.web.json;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java100.app.domain.Member;
+import java100.app.service.FacebookService;
 import java100.app.service.MemberService;
 
 @RestController
@@ -23,6 +25,7 @@ import java100.app.service.MemberService;
 public class SigninController {
     
     @Autowired MemberService memberService;
+    @Autowired FacebookService facebookService;
     
     @RequestMapping(value="signin", method=RequestMethod.POST)
     public Object signin(
@@ -58,6 +61,39 @@ public class SigninController {
             result.put("status", "success");
         }
         return result;
+    }
+    
+    @RequestMapping(value="facebookLogin")
+    public Object facebookLogin(
+            String accessToken,
+            HttpSession session,
+            Model model) {
+        
+        try {
+            @SuppressWarnings("rawtypes")
+            Map userInfo = facebookService.me(accessToken, Map.class);
+            
+            Member member = memberService.get((String)userInfo.get("email"));
+            
+            if (member == null) {
+                member = new Member();
+                member.setName((String)userInfo.get("name"));
+                member.setEmail((String)userInfo.get("email"));
+                member.setPassword("1111");
+                memberService.add(member);
+            }
+            
+            model.addAttribute("signinUser", member);
+            
+            HashMap<String, Object> result = new HashMap<>();
+            result.put("status", "success");
+            return result;
+            
+        } catch (Exception e) {
+            HashMap<String, Object> result = new HashMap<>();
+            result.put("status", "fail");
+            return result;
+        }
     }
     
     @RequestMapping("signout")

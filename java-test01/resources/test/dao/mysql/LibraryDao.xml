@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO 객체를 자동 생성하려면 namespace의 값이
+     인터페이스 이름과 같아야 한다. -->
+<mapper namespace="test.dao.LibraryDao">
+
+    <resultMap type="library" id="libraryMap">
+        <id column="no" property="no"/>
+        <!-- 컬럼 이름과 프로퍼티 이름이 같아서 생략! -->
+        <result column="title" property="title"/>
+        <result column="pub" property="publisher"/>
+        <result column="pubdt" property="createDate"/>
+        <result column="price" property="price"/>
+        <result column="expn" property="explanation"/>
+        
+        <collection property="files" ofType="uploadFile">
+            <id      column="b_no"     property="no"/>
+            <result  column="filename"   property="filename"/>
+        </collection>
+    </resultMap>
+    
+    
+    <select id="findAll" resultMap="libraryMap" parameterType="map">
+        select 
+            l.no,
+            l.title,
+            l.pub,
+            l.price,
+            b.no as b_no,
+            b.filename as filename
+        from ex_library as l join ex_book_cover as b on l.no=b.lno
+        <if test="words != null">
+            <where>
+                <foreach collection="words" item="word">
+                    or title like '${word}%'
+                </foreach>
+            </where>
+        </if>
+        
+        order by
+        <choose>
+            <when test="orderColumn == 'title' and align == 'desc'">
+                title desc
+            </when>
+            <when test="orderColumn == 'price' and align == 'desc'">
+                price desc
+            </when>
+            <when test="orderColumn == 'price' and align == 'asc'">
+                price asc
+            </when>
+            <otherwise>
+                title asc
+            </otherwise>
+        </choose>
+        limit #{startIndex}, #{size}
+        
+    </select>
+    <select id="findByNo" resultMap="libraryMap" parameterType="int">
+        select 
+            l.no,
+            l.title,
+            l.pub,
+            l.pubdt,
+            l.price,
+            l.expn,
+            b.no as b_no,
+            b.filename as filename
+        from ex_library as l join ex_book_cover as b on l.no=b.lno 
+        where l.no=#{value}
+    </select>
+    
+     <select id="countAll" resultType="int">
+        select count(*) from ex_library
+    </select>
+    
+    <!-- 
+    <select id="findByNo2" resultMap="libraryMap" parameterType="int">
+        select 
+            b.no, 
+            b.title, 
+            b.conts, 
+            b.regdt, 
+            b.vwcnt, 
+            m.no as m_no, 
+            m.name, 
+            m.email,
+            f.no as f_no,
+            f.filename
+        from 
+            ex_board as b 
+            join ex_memb as m on b.mno=m.no
+            left join ex_file as f on b.no=f.bno
+        where b.no=#{value}
+    </select>
+    -->
+    <insert id="insert" parameterType="library" 
+        useGeneratedKeys="true" keyColumn="no" keyProperty="no">
+        insert into ex_library(title,pub,pubdt,price,expn)
+        values(#{title},#{publisher},#{createDate},#{price},#{explanation})
+    </insert>
+    
+    <update id="update" parameterType="library">
+        update ex_library set 
+            title=#{title},
+            pub=#{publisher},
+            pubdt=#{createDate},
+            price=#{price},
+            expn=#{explanation}
+        where no=#{no}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+        delete from ex_library 
+        where no=#{value}
+    </delete>
+    
+</mapper>

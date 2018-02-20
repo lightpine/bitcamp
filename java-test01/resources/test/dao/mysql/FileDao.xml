@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO 객체를 자동 생성하려면 namespace의 값이
+     인터페이스 이름과 같아야 한다. -->
+<mapper namespace="test.dao.FileDao">
+    
+    <select id="findByLibraryNo" resultType="uploadFile" parameterType="int">
+        select
+            no,
+            filename
+        from ex_book_cover
+        where lno=#{value}
+            
+    </select>
+    
+    
+    <insert id="insert" parameterType="uploadFile">
+        insert into ex_book_cover(filename, lno)
+        values(#{filename}, #{libraryNo})
+    </insert>
+    
+    <delete id="deleteAllByLibraryNo" parameterType="int">
+        delete from ex_book_cover
+        where lno=#{value} 
+    </delete>
+    
+    
+    
+</mapper>
